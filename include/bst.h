@@ -2,6 +2,7 @@
 #define BST_H
 
 #include <functional>
+#include <compare>
 #include <initializer_list>
 #include <string>
 #include <iomanip>
@@ -18,6 +19,9 @@ public:
         Node(int value, Node* left, Node* right);
         Node();
         Node(const Node& node);
+        friend std::ostream& operator<<(std::ostream& stream, Node& node);
+        std::partial_ordering operator<=>(int Value);
+        bool operator==(int Value);
 
         int value;
         Node* left;
@@ -35,6 +39,11 @@ public:
     Node** find_successor(int value);
     bool delete_node(int value);
     ~BST();
+    friend std::ostream& operator<<(std::ostream& stream, BST& bst);
+    BST& operator++();
+    BST operator++(int);
+    BST& operator=(BST& bst);
+    BST& operator=(BST&& bst);
 private:
     Node* root;
 };
